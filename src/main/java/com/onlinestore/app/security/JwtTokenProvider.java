@@ -2,9 +2,7 @@ package com.onlinestore.app.security;
 
 
 import com.onlinestore.app.exceptions.OnlineStoreAPIException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -50,7 +48,19 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         }catch (SignatureException ex){
-            throw new OnlineStoreAPIException(HttpStatus.BAD_REQUEST, "Invalid JWT");
+            throw new OnlineStoreAPIException(HttpStatus.BAD_REQUEST, "Invalid JWT signature");
+        }
+        catch (MalformedJwtException ex){
+            throw new OnlineStoreAPIException(HttpStatus.BAD_REQUEST, "Invalid JWT token");
+        }
+        catch (ExpiredJwtException ex){
+            throw new OnlineStoreAPIException(HttpStatus.BAD_REQUEST, "Expired JWT token");
+        }
+        catch (UnsupportedJwtException ex){
+            throw new OnlineStoreAPIException(HttpStatus.BAD_REQUEST, "Unsupported JWT token");
+        }
+        catch (IllegalArgumentException ex){
+            throw new OnlineStoreAPIException(HttpStatus.BAD_REQUEST, "JWT claims string is empty");
         }
     }
 

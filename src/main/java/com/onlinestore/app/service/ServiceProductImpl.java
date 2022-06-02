@@ -3,7 +3,7 @@ package com.onlinestore.app.service;
 import com.onlinestore.app.payload.ProductDTO;
 import com.onlinestore.app.entity.Customer;
 import com.onlinestore.app.entity.Product;
-import com.onlinestore.app.exceptions.ObjectNotFound;
+import com.onlinestore.app.exceptions.ResourceNotFound;
 import com.onlinestore.app.exceptions.OnlineStoreAPIException;
 import com.onlinestore.app.repository.CustomerRepository;
 import com.onlinestore.app.repository.ProductRepository;
@@ -33,7 +33,7 @@ public class ServiceProductImpl implements ServiceProduct{
         Product product = mapToEntity(productDTO);
 
         Customer customer = customerRepository.findById(customerId).orElseThrow(() ->
-                new ObjectNotFound("Customer", "id", customerId));
+                new ResourceNotFound("Customer", "id", customerId));
 
 
         product.setCustomer(customer);
@@ -58,10 +58,10 @@ public class ServiceProductImpl implements ServiceProduct{
     public ProductDTO getProductById(Long customerId, Long productId) {
 
         Customer customer = customerRepository.findById(customerId).orElseThrow(() ->
-                new ObjectNotFound("Customer", "id", customerId));
+                new ResourceNotFound("Customer", "id", customerId));
 
         Product product = productRepository.findById(productId).orElseThrow(() ->
-                new ObjectNotFound("Product", "id", productId));
+                new ResourceNotFound("Product", "id", productId));
 
         if(!product.getCustomer().getId().equals(customerId)){
             throw new OnlineStoreAPIException(HttpStatus.BAD_REQUEST, "Product does not belong to Customer");
@@ -75,10 +75,10 @@ public class ServiceProductImpl implements ServiceProduct{
     public ProductDTO updateProduct(Long customerId, Long productId, ProductDTO productDTO) {
 
         Customer customer = customerRepository.findById(customerId).orElseThrow(() ->
-                new ObjectNotFound("Customer", "id", customerId));
+                new ResourceNotFound("Customer", "id", customerId));
 
         Product product = productRepository.findById(productId).orElseThrow(() ->
-                new ObjectNotFound("Product", "id", productId));
+                new ResourceNotFound("Product", "id", productId));
 
         product.setProductName(productDTO.getProductName());
         product.setPrice(productDTO.getPrice());
@@ -94,10 +94,10 @@ public class ServiceProductImpl implements ServiceProduct{
     public void deleteProduct(Long customerId, Long productId) {
 
         Customer customer = customerRepository.findById(customerId).orElseThrow(() ->
-                new ObjectNotFound("Customer", "id", customerId));
+                new ResourceNotFound("Customer", "id", customerId));
 
         Product product = productRepository.findById(productId).orElseThrow(() ->
-                new ObjectNotFound("Product", "id", productId));
+                new ResourceNotFound("Product", "id", productId));
 
         productRepository.delete(product);
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.onlinestore.app.payload.CustomerDTO;
-import com.onlinestore.app.exceptions.ObjectNotFound;
+import com.onlinestore.app.exceptions.ResourceNotFound;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +49,7 @@ public class ServiceCustomerImpl implements ServiceCustomer {
 	@Override
 	public CustomerDTO getCustomerById(Long id) {
 
-		Customer customer = customerRepository.findById(id).orElseThrow(() -> new ObjectNotFound("Customer", "id", id));
+		Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Customer", "id", id));
 
 		return  mapToDTO(customer);
 	}
@@ -57,7 +57,7 @@ public class ServiceCustomerImpl implements ServiceCustomer {
 	@Override
 	public CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO) {
 
-		Customer customer = customerRepository.findById(id).orElseThrow(() -> new ObjectNotFound("Customer", "id", id));
+		Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Customer", "id", id));
 		customer.setName(customerDTO.getName());
 		customer.setEmail(customerDTO.getEmail());
 		customer.setGender(customerDTO.getGender());
@@ -71,7 +71,7 @@ public class ServiceCustomerImpl implements ServiceCustomer {
 	@Override
 	public void deleteCustomer(Long id) {
 
-		Customer customer = customerRepository.findById(id).orElseThrow(() -> new ObjectNotFound("Customer", "id", id));
+		Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Customer", "id", id));
 
 		customerRepository.delete(customer);
 

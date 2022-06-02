@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class CustomerController {
 
 	@Autowired

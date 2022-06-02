@@ -17,8 +17,8 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ObjectNotFound.class)
-    public ResponseEntity<ErrorDetails> handlerObjectNotFound(ObjectNotFound ex , WebRequest webRequest){
+    @ExceptionHandler(ResourceNotFound.class)
+    public ResponseEntity<ErrorDetails> handlerObjectNotFound(ResourceNotFound ex , WebRequest webRequest){
 
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), webRequest.getDescription(false));
 
