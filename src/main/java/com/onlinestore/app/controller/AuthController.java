@@ -8,6 +8,8 @@ import com.onlinestore.app.entity.User;
 import com.onlinestore.app.repository.RoleRepository;
 import com.onlinestore.app.repository.UserRepository;
 import com.onlinestore.app.security.JwtTokenProvider;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Collections;
 
+@Api(value = "Auth controller allows user to signup and log in")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -43,8 +47,9 @@ public class AuthController {
     private JwtTokenProvider jwtTokenProvider;
 
 
+    @ApiOperation(value = "Log in the online store REST API")
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthResponse> logIn(@RequestBody LoginDTO loginDto){
+    public ResponseEntity<JwtAuthResponse> logIn(@Valid @RequestBody LoginDTO loginDto){
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword()));
 
@@ -56,8 +61,9 @@ public class AuthController {
         return new ResponseEntity<>( new JwtAuthResponse(token), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Sign up the online store REST API")
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody SignUpDTO signUpDTO){
+    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpDTO signUpDTO){
 
         if(userRepository.existsByUsername(signUpDTO.getUsername())){
 

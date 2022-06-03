@@ -33,8 +33,8 @@ public class ConfigSwagger {
     }
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "My REST API",
-                "Some custom description of API.",
+                "Online Store REST API",
+                "Online Store API Rest.",
                 "1.0",
                 "Terms of service",
                 new Contact("Andres Ramirez", "www.andres.com", "andres1933@gmail.com"),
