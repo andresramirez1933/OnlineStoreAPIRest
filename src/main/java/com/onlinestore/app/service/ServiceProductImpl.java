@@ -25,7 +25,8 @@ public class ServiceProductImpl implements ServiceProduct{
     @Autowired
     private ProductRepository productRepository;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public ProductDTO generateProduct(Long customerId, ProductDTO productDTO) {

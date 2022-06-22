@@ -20,8 +20,9 @@ public class ServiceCustomerImpl implements ServiceCustomer {
 	
 	@Autowired
 	private CustomerRepository customerRepository;
-	
-	private ModelMapper modelMapper = new ModelMapper();
+
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	
 	@Override

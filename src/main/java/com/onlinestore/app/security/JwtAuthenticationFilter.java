@@ -57,29 +57,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
 
-        }catch (SignatureException ex){
+        }catch (Exception ex){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JWT signature");
-
-        }
-        catch (MalformedJwtException ex){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JWT token");
-
-        }
-        catch (ExpiredJwtException ex){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_BAD_REQUEST, "Expired JWT token");
-
-        }
-        catch (UnsupportedJwtException ex){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_BAD_REQUEST, "Unsupported JWT token");
-
-        }
-        catch (IllegalArgumentException ex){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_BAD_REQUEST, "JWT claims string is empty");
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 
         }
     }
