@@ -78,6 +78,33 @@ public class ServiceCustomerImpl implements ServiceCustomer {
 
 	}
 
+	//it finds client by email
+	@Override
+	public CustomerDTO findByEmail(String email) {
+
+		Customer customer = customerRepository.findByEmail(email);
+
+		return mapToDTO(customer);
+	}
+
+	//it finds lists of customers by name
+	@Override
+	public List<CustomerDTO> findByName(String name) {
+
+		List<Customer> customers = customerRepository.findByNameContaining(name);
+
+		return customers.stream().map(customer -> mapToDTO(customer)).collect(Collectors.toList());
+	}
+
+	//it finds lists of clients by gender
+	@Override
+	public List<CustomerDTO> findByGender(String gender) {
+
+		List<Customer> customers = customerRepository.findByGenderJPQLQuery(gender);
+
+		return customers.stream().map(customer -> mapToDTO(customer)).collect(Collectors.toList());
+	}
+
 
 	private Customer mapToEntity(CustomerDTO orderRequest) {
 		

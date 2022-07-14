@@ -47,6 +47,30 @@ public class CustomerController {
 		return new ResponseEntity<>(serviceCustomer.getCustomerById(id), HttpStatus.OK);
 	}
 
+	//get customer by email
+	@ApiOperation(value = "Get customer by email")
+	@GetMapping("/placeorder/email/{email}")
+	public ResponseEntity<CustomerDTO> getCustomerByEmail(@PathVariable("email") String email){
+
+		return new ResponseEntity<>(serviceCustomer.findByEmail(email), HttpStatus.OK);
+	}
+
+	//get customers by name
+	@ApiOperation(value = "Get customers by name")
+	@GetMapping("/placeorder/name/{name}")
+	public ResponseEntity<List<CustomerDTO>> getCustomerByName(@PathVariable("name") String name){
+
+		return new ResponseEntity<>(serviceCustomer.findByName(name), HttpStatus.OK);
+	}
+
+	//get customers by gender
+	@ApiOperation(value = "Get customers by gender")
+	@GetMapping("/placeorder/gender/{gender}")
+	public ResponseEntity<List<CustomerDTO>> getCustomerByGender(@PathVariable("gender") String gender){
+
+		return new ResponseEntity<List<CustomerDTO>>(serviceCustomer.findByGender(gender), HttpStatus.OK);
+	}
+
 	@ApiOperation(value = "Update customer by id")
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/placeorder/{id}")
@@ -65,4 +89,6 @@ public class CustomerController {
 
 		return new ResponseEntity<>("Order deleted", HttpStatus.OK);
 	}
+
+
 }

@@ -7,14 +7,22 @@ import com.onlinestore.app.payload.CustomerDTO;
 
 public interface ServiceCustomer {
 	
-	public CustomerDTO generateCustomer(CustomerDTO orderRequest);
+	CustomerDTO generateCustomer(CustomerDTO orderRequest);
 	
-	public List<CustomerDTO> listCustomers();
+	List<CustomerDTO> listCustomers();
 
 	CustomerDTO getCustomerById(Long id);
 
 	CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO);
 
 	void deleteCustomer(Long id);
+
+	CustomerDTO findByEmail(String email);
+
+	List<CustomerDTO> findByName(String name);
+
+	List<CustomerDTO> findByGender(String gender);
+
+
 
 }
