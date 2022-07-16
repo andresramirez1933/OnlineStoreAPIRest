@@ -8,10 +8,11 @@ import org.springframework.data.repository.query.Param;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    Customer findByEmail(String email);
+    Optional<Customer> findByEmail(String email);
 
     List<Customer> findByNameContaining(String email);
 

@@ -8,9 +8,9 @@ public class ResourceNotFound extends RuntimeException {
 
     private String resourceName;
     private String fieldName;
-    private Long fieldValue;
+    private Object fieldValue;
 
-    public ResourceNotFound(String resourceName, String fieldName, Long fieldValue) {
+    public ResourceNotFound(String resourceName, String fieldName, Object fieldValue) {
         super(String.format("%s is not found with %s: %s ", resourceName, fieldName, fieldValue));
         this.resourceName = resourceName;
         this.fieldName = fieldName;

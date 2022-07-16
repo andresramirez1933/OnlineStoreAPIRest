@@ -83,7 +83,7 @@ public class ServiceCustomerImpl implements ServiceCustomer {
 	@Override
 	public CustomerDTO findByEmail(String email) {
 
-		Customer customer = customerRepository.findByEmail(email);
+		Customer customer = customerRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFound("Customer", "Email", email));
 
 		return mapToDTO(customer);
 	}
