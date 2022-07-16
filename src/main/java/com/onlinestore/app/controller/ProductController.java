@@ -3,6 +3,7 @@ package com.onlinestore.app.controller;
 import com.onlinestore.app.payload.ProductDTO;
 
 
+import com.onlinestore.app.payload.ProductPriceRequest;
 import com.onlinestore.app.service.ServiceProduct;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +46,15 @@ public class ProductController {
         return new ResponseEntity<ProductDTO>(serviceProduct.getProductById(placeOrderId,productId ), HttpStatus.OK);
     }
 
+    //It gets products within start price and end price
+    @ApiOperation(value = "Get products by price range")
+    @PostMapping("/placeorder/price")
+    public ResponseEntity<List<ProductDTO>> getProductsByPriceRange(@Valid @RequestBody ProductPriceRequest request) {
+
+        return new ResponseEntity<>(serviceProduct.findByPriceBetween(request), HttpStatus.OK);
+    }
+
+
     @ApiOperation(value = "Update product by id")
     @PutMapping("/placeorder/{placeOrderId}/products/{productId}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable("placeOrderId") Long placeOrderId,
@@ -61,6 +71,8 @@ public class ProductController {
 
         return new ResponseEntity<String>("Product deleted", HttpStatus.OK);
     }
+
+
 
 
 }

@@ -1,12 +1,14 @@
-package com.onlinestore.app.service;
+package com.onlinestore.app.service.impl;
 
 import com.onlinestore.app.payload.ProductDTO;
 import com.onlinestore.app.entity.Customer;
 import com.onlinestore.app.entity.Product;
 import com.onlinestore.app.exceptions.ResourceNotFound;
 import com.onlinestore.app.exceptions.OnlineStoreAPIException;
+import com.onlinestore.app.payload.ProductPriceRequest;
 import com.onlinestore.app.repository.CustomerRepository;
 import com.onlinestore.app.repository.ProductRepository;
+import com.onlinestore.app.service.ServiceProduct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ServiceProductImpl implements ServiceProduct{
+public class ServiceProductImpl implements ServiceProduct {
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -102,6 +104,15 @@ public class ServiceProductImpl implements ServiceProduct{
 
         productRepository.delete(product);
 
+    }
+
+    @Override
+    public List<ProductDTO> findByPriceBetween(ProductPriceRequest request) {
+
+
+        List<Product> products = productRepository.findByPriceBetween(request.getStartPrice(), request.getEndPrice());
+
+        return products.stream().map(product -> mapToDTO(product)).collect(Collectors.toList());
     }
 
 
